@@ -1,4 +1,4 @@
-package com.miracom.backendramioverflow.review.entity.Tags;
+package com.miracom.backendramioverflow.posts.entity.Tags;
 
 import java.io.Serializable;
 

@@ -1,4 +1,4 @@
-package com.miracom.backendramioverflow.review.entity.Posts;
+package com.miracom.backendramioverflow.posts.entity.Posts;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
