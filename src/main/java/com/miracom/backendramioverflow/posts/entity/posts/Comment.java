@@ -1,13 +1,10 @@
-package com.miracom.backendramioverflow.posts.entity.Posts;
+package com.miracom.backendramioverflow.posts.entity.posts;
 
-import jakarta.persistence.Column;
-import jakarta.persistence.Entity;
-import jakarta.persistence.Id;
-import jakarta.persistence.Table;
 import lombok.Getter;
 import org.hibernate.annotations.CreationTimestamp;
 import org.springframework.format.annotation.DateTimeFormat;
 
+import javax.persistence.*;
 import java.time.LocalDate;
 import java.util.UUID;
 
@@ -16,12 +13,9 @@ import java.util.UUID;
 @Table(name = "COMMENT")
 public class Comment {
 
-    private Comment() {
-        this.id = UUID.randomUUID().toString();
-    }
-
     @Id
-    private String id;
+    @GeneratedValue(strategy = GenerationType.AUTO)
+    private Long id;
 
     @Column(length = 3)
     private int postId;
@@ -47,4 +41,5 @@ public class Comment {
 
     @Column
     private boolean delYn;
+
 }

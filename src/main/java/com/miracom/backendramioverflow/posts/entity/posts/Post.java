@@ -1,30 +1,25 @@
-package com.miracom.backendramioverflow.posts.entity.Posts;
+package com.miracom.backendramioverflow.posts.entity.posts;
 
-import jakarta.persistence.Column;
-import jakarta.persistence.Entity;
-import jakarta.persistence.Id;
-import jakarta.persistence.Table;
+import lombok.Builder;
+import lombok.Generated;
 import lombok.Getter;
-import lombok.Setter;
 import org.hibernate.annotations.CreationTimestamp;
 import org.hibernate.annotations.UpdateTimestamp;
 import org.springframework.format.annotation.DateTimeFormat;
 
+import javax.persistence.*;
 import java.time.LocalDate;
 import java.util.UUID;
 
 @Entity
 @Getter
-@Setter
+@Builder
 @Table(name = "POST")
 public class Post {
 
-    private Post() {
-        this.id = UUID.randomUUID().toString();
-    }
-
     @Id
-    private String id;
+    @GeneratedValue(strategy = GenerationType.AUTO)
+    private Long id;
 
     @Column(length = 3)
     private int postTypeId;     // 1-Question, 2-Answer
@@ -90,5 +85,4 @@ public class Post {
 
     @Column
     private boolean delYn;
-
 }
