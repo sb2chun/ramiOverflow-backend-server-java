@@ -6,6 +6,7 @@ import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
+import lombok.NonNull;
 
 import java.time.LocalDate;
 
@@ -76,6 +77,7 @@ public class PostResponseDTO {
     @ApiModelProperty(value = "삭제 여부", example = "0", position = 19)
     private boolean delYn;
 
+    @NonNull
     public static PostResponseDTO fromEntity(Post entity){
         PostResponseDTO postResponseDTO = new PostResponseDTO();
 
@@ -97,9 +99,9 @@ public class PostResponseDTO {
         postResponseDTO.setFavoriteCount(entity.getFavoriteCount());
         postResponseDTO.setCommentCount(entity.getCommentCount());
         postResponseDTO.setClosedAt(entity.getClosedAt());
-        postResponseDTO.setCloseYn(entity.isCloseYn());
-        postResponseDTO.setUseYn(entity.isUseYn());
-        postResponseDTO.setDelYn(entity.isDelYn());
+        postResponseDTO.setCloseYn(entity.isClosed());
+        postResponseDTO.setUseYn(entity.isUsed());
+        postResponseDTO.setDelYn(entity.isDeleted());
 
         return postResponseDTO;
     }

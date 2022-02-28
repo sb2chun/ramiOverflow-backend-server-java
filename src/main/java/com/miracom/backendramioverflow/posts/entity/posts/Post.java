@@ -78,11 +78,11 @@ public class Post {
     private LocalDate closedAt;
 
     @Column
-    private boolean closeYn;
+    private boolean isClosed;
 
     @Column
-    private boolean useYn;
+    private boolean isUsed;
 
     @Column
-    private boolean delYn;
+    private boolean isDeleted;
 }
