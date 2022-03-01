@@ -1,19 +1,19 @@
 package com.miracom.backendramioverflow.posts.entity.posts;
 
-import lombok.Builder;
-import lombok.Generated;
-import lombok.Getter;
+import lombok.*;
+import org.hibernate.annotations.ColumnDefault;
 import org.hibernate.annotations.CreationTimestamp;
 import org.hibernate.annotations.UpdateTimestamp;
 import org.springframework.format.annotation.DateTimeFormat;
 
 import javax.persistence.*;
 import java.time.LocalDate;
-import java.util.UUID;
 
 @Entity
 @Getter
 @Builder
+@NoArgsConstructor
+@AllArgsConstructor
 @Table(name = "POST")
 public class Post {
 
@@ -39,6 +39,7 @@ public class Post {
     @Column(length = 800)
     private String body;
 
+    @Column(nullable = false, updatable = false)
     @CreationTimestamp
     @DateTimeFormat(pattern = "yyyy-MM-dd")
     private LocalDate createdAt;        // FST_REG_DT
@@ -55,6 +56,7 @@ public class Post {
     @Column(length = 40)
     private String lastEditorUserName;
 
+    @Column
     @UpdateTimestamp
     @DateTimeFormat(pattern = "yyyy-MM-dd")
     private LocalDate lastEditedAt;
@@ -74,6 +76,7 @@ public class Post {
     @Column(length = 10)
     private int commentCount;
 
+    @Column
     @DateTimeFormat(pattern = "yyyy-MM-dd")
     private LocalDate closedAt;
 
@@ -85,4 +88,16 @@ public class Post {
 
     @Column
     private boolean isDeleted;
+
+    @PrePersist
+    public void prePersist(){
+        this.isClosed = false;
+        this.isUsed = true;
+        this.isDeleted = false;
+    }
+
+    public void deletePost(){
+        this.isDeleted = true;
+        this.isUsed = false;
+    }
 }

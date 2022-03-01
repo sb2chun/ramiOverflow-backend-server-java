@@ -11,7 +11,7 @@ import lombok.Setter;
 @Getter
 @Setter
 @NoArgsConstructor
-public class PostRequestDTO {
+public class PostRequest {
     @ApiModelProperty(value = "제목", example = "How to use Swagger...", position = 13)
     private String title;
 
@@ -29,6 +29,7 @@ public class PostRequestDTO {
 
     @ApiModelProperty(value = "게시글 Type", example = "1", position = 1)
     private int postTypeId;     // 1-Question, 2-Answer
+
 
 
     public Post toEntity(){

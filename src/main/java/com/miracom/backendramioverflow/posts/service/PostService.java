@@ -1,7 +1,7 @@
 package com.miracom.backendramioverflow.posts.service;
 
-import com.miracom.backendramioverflow.posts.dto.request.PostRequestDTO;
-import com.miracom.backendramioverflow.posts.dto.response.PostResponseDTO;
+import com.miracom.backendramioverflow.posts.dto.request.PostRequest;
+import com.miracom.backendramioverflow.posts.dto.response.PostResponse;
 import com.miracom.backendramioverflow.posts.entity.conditions.PostTypesEnum;
 import com.miracom.backendramioverflow.posts.entity.posts.Post;
 import com.miracom.backendramioverflow.posts.repository.PostRepository;
@@ -10,6 +10,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
+import java.util.Optional;
 import java.util.stream.Collectors;
 
 @Service
@@ -19,21 +20,40 @@ public class PostService {
 
     private final PostRepository postRepository;
 
-    public List<PostResponseDTO> findAllPost() {
-        List<Post> posts = postRepository.findAll();
+    public PostResponse savePost(PostRequest postRequest) {
+        Post post = initNewQuestion(postRequest);
 
-        return posts.stream().map(PostResponseDTO::fromEntity).collect(Collectors.toList());
+        return PostResponse.fromEntity(postRepository.save(post));
     }
 
-    public PostResponseDTO savePost(PostRequestDTO postRequestDTO) {
-        Post post = initNewQuestion(postRequestDTO);
+    public PostResponse findPost(Long id){
+        Post post = postRepository.findPostById(id);
 
-        return PostResponseDTO.fromEntity(postRepository.save(post));
+        return PostResponse.fromEntity(post);
     }
 
-    private Post initNewQuestion(PostRequestDTO postRequestDTO) {
-        postRequestDTO.setPostTypeId(PostTypesEnum.QUESTION.value());
 
-        return postRequestDTO.toEntity();
+    public List<PostResponse> findAllPost() {
+        List<Post> posts = postRepository.findAllPost();
+
+        return posts.stream().map(PostResponse::fromEntity).collect(Collectors.toList());
+    }
+
+    private Post initNewQuestion(PostRequest postRequest) {
+        postRequest.setPostTypeId(PostTypesEnum.QUESTION.value());
+
+        return postRequest.toEntity();
+    }
+
+    public PostResponse deletePostById(Long id){
+        Optional<Post> post = postRepository.findById(id);
+
+        post.ifPresent(selectPost ->{
+            selectPost.deletePost();
+
+            postRepository.save(selectPost);
+        });
+
+        return PostResponse.fromEntity(post.get());
     }
 }

@@ -4,7 +4,6 @@ import com.miracom.backendramioverflow.posts.entity.posts.Post;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;
-import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.NonNull;
 
@@ -13,7 +12,7 @@ import java.time.LocalDate;
 @ApiModel
 @Data
 @NoArgsConstructor
-public class PostResponseDTO {
+public class PostResponse {
     @ApiModelProperty(value = "게시글 Type", example = "1", position = 1)
     private int postTypeId;     // 1-Question, 2-Answer
 
@@ -72,14 +71,13 @@ public class PostResponseDTO {
     private boolean closeYn;
 
     @ApiModelProperty(value = "사용 여부", example = "1", position = 18)
-    private boolean useYn;
+    private boolean isUsed;
 
     @ApiModelProperty(value = "삭제 여부", example = "0", position = 19)
-    private boolean delYn;
+    private boolean isDeleted;
 
-    @NonNull
-    public static PostResponseDTO fromEntity(Post entity){
-        PostResponseDTO postResponseDTO = new PostResponseDTO();
+    public static PostResponse fromEntity(Post entity){
+        PostResponse postResponseDTO = new PostResponse();
 
         postResponseDTO.setPostTypeId(entity.getPostTypeId());
         postResponseDTO.setAcceptAnswerId(entity.getAcceptAnswerId());
@@ -100,8 +98,8 @@ public class PostResponseDTO {
         postResponseDTO.setCommentCount(entity.getCommentCount());
         postResponseDTO.setClosedAt(entity.getClosedAt());
         postResponseDTO.setCloseYn(entity.isClosed());
-        postResponseDTO.setUseYn(entity.isUsed());
-        postResponseDTO.setDelYn(entity.isDeleted());
+        postResponseDTO.setUsed(entity.isUsed());
+        postResponseDTO.setDeleted(entity.isDeleted());
 
         return postResponseDTO;
     }
