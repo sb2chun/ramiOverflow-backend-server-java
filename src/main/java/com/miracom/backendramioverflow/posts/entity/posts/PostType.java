@@ -1,7 +1,8 @@
-package com.miracom.backendramioverflow.posts.entity.Posts;
+package com.miracom.backendramioverflow.posts.entity.posts;
 
-import jakarta.persistence.*;
 import lombok.Getter;
+
+import javax.persistence.*;
 
 @Entity
 @Getter
@@ -14,7 +15,7 @@ public class PostType {
 
     @Column(length = 10)
     private String Name;
-    
+
     @Column
     private boolean useYn;
 

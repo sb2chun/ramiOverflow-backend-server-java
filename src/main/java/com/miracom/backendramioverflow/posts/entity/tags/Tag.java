@@ -1,8 +1,8 @@
-package com.miracom.backendramioverflow.posts.entity.Tags;
+package com.miracom.backendramioverflow.posts.entity.tags;
 
-import jakarta.persistence.*;
 import lombok.Getter;
 
+import javax.persistence.*;
 import java.util.UUID;
 
 @Entity
@@ -10,12 +10,9 @@ import java.util.UUID;
 @Table(name = "TAG")
 public class Tag {
 
-    private Tag(){
-        this.id = UUID.randomUUID().toString();
-    }
-
     @Id
-    private String id;
+    @GeneratedValue(strategy = GenerationType.AUTO)
+    private Long id;
 
     @Column(length = 30)
     private String tagName;

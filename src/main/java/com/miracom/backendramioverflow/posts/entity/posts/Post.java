@@ -1,30 +1,25 @@
-package com.miracom.backendramioverflow.posts.entity.Posts;
+package com.miracom.backendramioverflow.posts.entity.posts;
 
-import jakarta.persistence.Column;
-import jakarta.persistence.Entity;
-import jakarta.persistence.Id;
-import jakarta.persistence.Table;
-import lombok.Getter;
-import lombok.Setter;
+import lombok.*;
+import org.hibernate.annotations.ColumnDefault;
 import org.hibernate.annotations.CreationTimestamp;
 import org.hibernate.annotations.UpdateTimestamp;
 import org.springframework.format.annotation.DateTimeFormat;
 
+import javax.persistence.*;
 import java.time.LocalDate;
-import java.util.UUID;
 
 @Entity
 @Getter
-@Setter
+@Builder
+@NoArgsConstructor
+@AllArgsConstructor
 @Table(name = "POST")
 public class Post {
 
-    private Post() {
-        this.id = UUID.randomUUID().toString();
-    }
-
     @Id
-    private String id;
+    @GeneratedValue(strategy = GenerationType.AUTO)
+    private Long id;
 
     @Column(length = 3)
     private int postTypeId;     // 1-Question, 2-Answer
@@ -44,6 +39,7 @@ public class Post {
     @Column(length = 800)
     private String body;
 
+    @Column(nullable = false, updatable = false)
     @CreationTimestamp
     @DateTimeFormat(pattern = "yyyy-MM-dd")
     private LocalDate createdAt;        // FST_REG_DT
@@ -60,6 +56,7 @@ public class Post {
     @Column(length = 40)
     private String lastEditorUserName;
 
+    @Column
     @UpdateTimestamp
     @DateTimeFormat(pattern = "yyyy-MM-dd")
     private LocalDate lastEditedAt;
@@ -79,16 +76,28 @@ public class Post {
     @Column(length = 10)
     private int commentCount;
 
+    @Column
     @DateTimeFormat(pattern = "yyyy-MM-dd")
     private LocalDate closedAt;
 
     @Column
-    private boolean closeYn;
+    private boolean isClosed;
 
     @Column
-    private boolean useYn;
+    private boolean isUsed;
 
     @Column
-    private boolean delYn;
+    private boolean isDeleted;
 
+    @PrePersist
+    public void prePersist(){
+        this.isClosed = false;
+        this.isUsed = true;
+        this.isDeleted = false;
+    }
+
+    public void deletePost(){
+        this.isDeleted = true;
+        this.isUsed = false;
+    }
 }
