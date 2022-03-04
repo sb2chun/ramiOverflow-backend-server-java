@@ -41,7 +41,7 @@ public class Post {
 
     @Column(nullable = false, updatable = false)
     @CreationTimestamp
-    @DateTimeFormat(pattern = "yyyy-MM-dd")
+    @DateTimeFormat(pattern = "yyyy-MM-dd'T'HH:mm:ss")
     private LocalDate createdAt;        // FST_REG_DT
 
     @Column(length = 30)
@@ -58,7 +58,7 @@ public class Post {
 
     @Column
     @UpdateTimestamp
-    @DateTimeFormat(pattern = "yyyy-MM-dd")
+    @DateTimeFormat(pattern = "yyyy-MM-dd'T'HH:mm:ss")
     private LocalDate lastEditedAt;
 
     @Column
@@ -77,7 +77,7 @@ public class Post {
     private int commentCount;
 
     @Column
-    @DateTimeFormat(pattern = "yyyy-MM-dd")
+    @DateTimeFormat(pattern = "yyyy-MM-dd'T'HH:mm:ss")
     private LocalDate closedAt;
 
     @Column
@@ -99,5 +99,10 @@ public class Post {
     public void deletePost(){
         this.isDeleted = true;
         this.isUsed = false;
+    }
+
+    public void createQuestion(){
+        this.createdAt = LocalDate.now();
+        this.postTypeId = 1;
     }
 }

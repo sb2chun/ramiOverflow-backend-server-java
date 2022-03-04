@@ -1,0 +1,56 @@
+package com.miracom.backendramioverflow.posts.dto.response;
+
+import com.fasterxml.jackson.annotation.JsonInclude;
+import com.miracom.backendramioverflow.config.SysConfig;
+import com.miracom.backendramioverflow.posts.entity.posts.Post;
+import io.swagger.annotations.ApiModel;
+import io.swagger.annotations.ApiModelProperty;
+import lombok.Data;
+import lombok.NoArgsConstructor;
+
+import java.time.LocalDate;
+
+@ApiModel
+@Data
+@NoArgsConstructor
+@JsonInclude(JsonInclude.Include.NON_NULL)
+public class QuestionListResponse {
+
+    @ApiModelProperty(value = "질문 id", example = "1", position = 1)
+    private long questionId;
+    @ApiModelProperty(value = "질문 제목", example = "1", position = 2)
+    private String title;
+    @ApiModelProperty(value = "점수", example = "1", position = 3)
+    private int score;
+    @ApiModelProperty(value = "태그", example = "1", position = 4)
+    private String tags;
+    @ApiModelProperty(value = "답변 수", example = "1", position = 5)
+    private int AnswerCount;
+    @ApiModelProperty(value = "조회 수", example = "1", position = 6)
+    private int viewCount;
+    @ApiModelProperty(value = "답변 여부", example = "1", position = 7)
+    private boolean isAnswered;
+    @ApiModelProperty(value = "질문 링크", example = "1", position = 8)
+    private String link;
+    @ApiModelProperty(value = "최초 생성 일자", example = "1", position = 9)
+    private LocalDate createdAt;
+    @ApiModelProperty(value = "최종 수정 일자", example = "1", position = 10)
+    private LocalDate lastEditedAt;
+
+    public static QuestionListResponse fromEntity(Post entity){
+        QuestionListResponse response = new QuestionListResponse();
+
+        response.setQuestionId(entity.getId());
+        response.setTitle(entity.getTitle());
+        response.setScore(entity.getScore());
+        response.setTags(entity.getTags());
+        response.setAnswerCount(entity.getAnswerCount());
+        response.setViewCount(entity.getViewCount());
+        response.setAnswered( response.getAnswerCount()>0 ? true: false);
+        response.setLink(SysConfig.QUESTION_DEFAULT_URL+entity.getId());
+        response.setCreatedAt(entity.getCreatedAt());
+        response.setLastEditedAt(entity.getLastEditedAt());
+
+        return response;
+    }
+}
