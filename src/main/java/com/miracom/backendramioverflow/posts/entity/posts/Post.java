@@ -25,10 +25,10 @@ public class Post {
     private int postTypeId;     // 1-Question, 2-Answer
 
     @Column
-    private String acceptAnswerId;  // only present if PostTypeId = 1
+    private long acceptAnswerId;  // only present if PostTypeId = 1
 
     @Column
-    private String parentId;        // only present if PostTypeId = 2
+    private long parentId;        // only present if PostTypeId = 2
 
     @Column(length = 10)
     private int score;
@@ -104,5 +104,9 @@ public class Post {
     public void createQuestion(){
         this.createdAt = LocalDate.now();
         this.postTypeId = 1;
+    }
+
+    public void updateQuestion() {
+        this.lastEditedAt =LocalDate.now();
     }
 }

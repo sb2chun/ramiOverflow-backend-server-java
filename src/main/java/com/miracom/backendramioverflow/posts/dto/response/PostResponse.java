@@ -31,7 +31,7 @@ public class PostResponse {
     @ApiModelProperty(value = "본문", example = "Hello, I'm ...", position = 6)
     private String body;
 
-    @ApiModelProperty(value = "생성일시", example = "20221128135342", position = 7)
+    @ApiModelProperty(value = "생성일시", example = "2022-02-02'T'10:43:52", position = 7)
     private LocalDate createdAt;        // FST_REG_DT
 
     @ApiModelProperty(value = "유저 ID", example = "k-dohyun", position = 8)
@@ -46,7 +46,7 @@ public class PostResponse {
     @ApiModelProperty(value = "최종 수정자 이름", example = "천승범", position = 11)
     private String lastEditorUserName;
 
-    @ApiModelProperty(value = "최종 수정일시", example = "20221228123159", position = 12)
+    @ApiModelProperty(value = "최종 수정일시", example = "2022-02-02'T'10:43:52", position = 12)
     private LocalDate lastEditedAt;
 
     @ApiModelProperty(value = "제목", example = "How to use Swagger...", position = 13)
@@ -64,7 +64,7 @@ public class PostResponse {
     @ApiModelProperty(value = "코멘트 수", example = "3", position = 17)
     private int commentCount;
 
-    @ApiModelProperty(value = "질문 종료 일시", example = "20221231125959", position = 16)
+    @ApiModelProperty(value = "질문 종료 일시", example = "2022-02-02'T'10:43:52", position = 16)
     private LocalDate closedAt;
 
     @ApiModelProperty(value = "질문 종료 여부", example = "0", position = 17)

@@ -9,9 +9,12 @@ import java.util.Optional;
 
 public interface QuestionRepository extends JpaRepository<Post, Long> {
 
-    @Query("select p from Post p where p.isUsed=true")
+    @Query("select p from Post p where p.isUsed=true and p.isDeleted=false")
     public List<Post> findAllQuestion();
 
-    @Query("select p from Post p where p.id=?1 and p.isUsed=true")
+    @Query("select p from Post p where p.id=?1 and p.isUsed=true and p.isDeleted=false")
     public Post findQuestionById(long id);
+
+    @Query("select p from Post p where p.postTypeId=2 and p.parentId=?1 and p.isUsed=true and p.isDeleted=false")
+    public List<Post> findAllAnswerByQuestionId(long id);
 }

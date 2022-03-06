@@ -1,12 +1,13 @@
 package com.miracom.backendramioverflow.posts.service;
 
-import com.miracom.backendramioverflow.posts.dto.request.WriteQuestionRequest;
+import com.miracom.backendramioverflow.posts.dto.request.answer.AnswerDetailResponse;
+import com.miracom.backendramioverflow.posts.dto.request.question.UpdateQuestionRequest;
+import com.miracom.backendramioverflow.posts.dto.request.question.WriteQuestionRequest;
 import com.miracom.backendramioverflow.posts.dto.response.QuestionDetailResponse;
 import com.miracom.backendramioverflow.posts.dto.response.QuestionListResponse;
 import com.miracom.backendramioverflow.posts.entity.posts.Post;
 import com.miracom.backendramioverflow.posts.repository.QuestionRepository;
 import lombok.RequiredArgsConstructor;
-import org.springframework.data.util.Optionals;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -40,7 +41,9 @@ public class QuestionService {
         Post post = request.toEntity();
         post.createQuestion();
 
-        return QuestionDetailResponse.fromEntity(questionRepository.save(post));
+        questionRepository.save(post);
+
+        return QuestionDetailResponse.fromEntity(post);
     }
 
     //Delete(update)
@@ -54,5 +57,20 @@ public class QuestionService {
         });
 
         return QuestionDetailResponse.fromEntity(post.get());
+    }
+
+    public QuestionDetailResponse updateQuestionById(long id, UpdateQuestionRequest request) {
+        Post post = request.toEntity();
+        post.updateQuestion();
+
+        questionRepository.save(post);
+
+        return QuestionDetailResponse.fromEntity(post);
+    }
+
+    public List<AnswerDetailResponse> findAllAnswerByQuestionId(long id) {
+        List<Post> answers = questionRepository.findAllAnswerByQuestionId(id);
+
+        return answers.stream().map(AnswerDetailResponse::fromEntity).collect(Collectors.toList());
     }
 }

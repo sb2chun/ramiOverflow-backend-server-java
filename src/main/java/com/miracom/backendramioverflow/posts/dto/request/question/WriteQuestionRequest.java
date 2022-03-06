@@ -1,4 +1,4 @@
-package com.miracom.backendramioverflow.posts.dto.request;
+package com.miracom.backendramioverflow.posts.dto.request.question;
 
 import com.miracom.backendramioverflow.posts.entity.posts.Post;
 import io.swagger.annotations.ApiModel;

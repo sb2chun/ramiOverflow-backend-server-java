@@ -18,23 +18,23 @@ public class QuestionListResponse {
 
     @ApiModelProperty(value = "질문 id", example = "1", position = 1)
     private long questionId;
-    @ApiModelProperty(value = "질문 제목", example = "1", position = 2)
+    @ApiModelProperty(value = "질문 제목", example = "what's the better between ...", position = 2)
     private String title;
-    @ApiModelProperty(value = "점수", example = "1", position = 3)
+    @ApiModelProperty(value = "점수", example = "10", position = 3)
     private int score;
-    @ApiModelProperty(value = "태그", example = "1", position = 4)
+    @ApiModelProperty(value = "태그", example = "java;c#", position = 4)
     private String tags;
-    @ApiModelProperty(value = "답변 수", example = "1", position = 5)
+    @ApiModelProperty(value = "답변 수", example = "0", position = 5)
     private int AnswerCount;
-    @ApiModelProperty(value = "조회 수", example = "1", position = 6)
+    @ApiModelProperty(value = "조회 수", example = "0", position = 6)
     private int viewCount;
-    @ApiModelProperty(value = "답변 여부", example = "1", position = 7)
+    @ApiModelProperty(value = "답변 여부", example = "false", position = 7)
     private boolean isAnswered;
-    @ApiModelProperty(value = "질문 링크", example = "1", position = 8)
+    @ApiModelProperty(value = "질문 링크", example = "http://www.ramioverflow.com/11", position = 8)
     private String link;
-    @ApiModelProperty(value = "최초 생성 일자", example = "1", position = 9)
+    @ApiModelProperty(value = "최초 생성 일시", example = "2022-02-02'T'10:43:52", position = 9)
     private LocalDate createdAt;
-    @ApiModelProperty(value = "최종 수정 일자", example = "1", position = 10)
+    @ApiModelProperty(value = "최종 수정 일시", example = "2022-02-02'T'10:43:52", position = 10)
     private LocalDate lastEditedAt;
 
     public static QuestionListResponse fromEntity(Post entity){
