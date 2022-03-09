@@ -18,11 +18,11 @@ public class Tag {
     private String tagName;
 
     @Column(length = 10)
-    private int count;
+    private Integer count;
 
     @Column
-    private boolean useYn;
+    private Boolean useYn;
 
     @Column
-    private boolean delYn;
+    private Boolean delYn;
 }
