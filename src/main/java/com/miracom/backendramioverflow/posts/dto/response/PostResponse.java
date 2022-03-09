@@ -5,9 +5,8 @@ import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;
 import lombok.NoArgsConstructor;
-import lombok.NonNull;
 
-import java.time.LocalDate;
+import java.time.LocalDateTime;
 
 @ApiModel
 @Data
@@ -17,10 +16,10 @@ public class PostResponse {
     private int postTypeId;     // 1-Question, 2-Answer
 
     @ApiModelProperty(value = "채택된 답변의 게시글 Id", example = "3bf02478-491b...", position = 2)
-    private String acceptAnswerId;  // only present if PostTypeId = 1
+    private long acceptAnswerId;  // only present if PostTypeId = 1
 
     @ApiModelProperty(value = "부모 게시글 Id", example = "3bf02478-491b...", position = 3)
-    private String parentId;        // only present if PostTypeId = 2
+    private long parentId;        // only present if PostTypeId = 2
 
     @ApiModelProperty(value = "점수", example = "99", position = 4)
     private int score;
@@ -32,7 +31,7 @@ public class PostResponse {
     private String body;
 
     @ApiModelProperty(value = "생성일시", example = "2022-02-02'T'10:43:52", position = 7)
-    private LocalDate createdAt;        // FST_REG_DT
+    private LocalDateTime createdAt;        // FST_REG_DT
 
     @ApiModelProperty(value = "유저 ID", example = "k-dohyun", position = 8)
     private String ownerUserId;         // FST_REGER_ID
@@ -47,7 +46,7 @@ public class PostResponse {
     private String lastEditorUserName;
 
     @ApiModelProperty(value = "최종 수정일시", example = "2022-02-02'T'10:43:52", position = 12)
-    private LocalDate lastEditedAt;
+    private LocalDateTime lastEditedAt;
 
     @ApiModelProperty(value = "제목", example = "How to use Swagger...", position = 13)
     private String title;
@@ -65,7 +64,7 @@ public class PostResponse {
     private int commentCount;
 
     @ApiModelProperty(value = "질문 종료 일시", example = "2022-02-02'T'10:43:52", position = 16)
-    private LocalDate closedAt;
+    private LocalDateTime closedAt;
 
     @ApiModelProperty(value = "질문 종료 여부", example = "0", position = 17)
     private boolean closeYn;
@@ -76,7 +75,7 @@ public class PostResponse {
     @ApiModelProperty(value = "삭제 여부", example = "0", position = 19)
     private boolean isDeleted;
 
-    public static PostResponse fromEntity(Post entity){
+    public static PostResponse fromEntity(Post entity) {
         PostResponse postResponseDTO = new PostResponse();
 
         postResponseDTO.setPostTypeId(entity.getPostTypeId());
@@ -97,9 +96,9 @@ public class PostResponse {
         postResponseDTO.setFavoriteCount(entity.getFavoriteCount());
         postResponseDTO.setCommentCount(entity.getCommentCount());
         postResponseDTO.setClosedAt(entity.getClosedAt());
-        postResponseDTO.setCloseYn(entity.isClosed());
-        postResponseDTO.setUsed(entity.isUsed());
-        postResponseDTO.setDeleted(entity.isDeleted());
+        postResponseDTO.setCloseYn(entity.getIsClosed());
+        postResponseDTO.setUsed(entity.getIsUsed());
+        postResponseDTO.setDeleted(entity.getIsDeleted());
 
         return postResponseDTO;
     }

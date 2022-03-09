@@ -11,15 +11,15 @@ public class PostType {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     @Column(length = 3)
-    private int id;     // Posts`s PostTypeId
+    private Integer id;     // Posts`s PostTypeId
 
     @Column(length = 10)
     private String Name;
 
     @Column
-    private boolean useYn;
+    private Boolean useYn;
 
     @Column
-    private boolean delYn;
+    private Boolean delYn;
 
 }

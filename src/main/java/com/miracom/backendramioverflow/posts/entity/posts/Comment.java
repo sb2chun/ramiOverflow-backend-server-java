@@ -5,8 +5,7 @@ import org.hibernate.annotations.CreationTimestamp;
 import org.springframework.format.annotation.DateTimeFormat;
 
 import javax.persistence.*;
-import java.time.LocalDate;
-import java.util.UUID;
+import java.time.LocalDateTime;
 
 @Entity
 @Getter
@@ -18,17 +17,17 @@ public class Comment {
     private Long id;
 
     @Column(length = 3)
-    private int postId;
+    private Integer postId;
 
     @Column(length = 10)
-    private int score;
+    private Integer score;
 
     @Column(length = 800)
     private String text;
 
     @CreationTimestamp
-    @DateTimeFormat(pattern = "yyyy-MM-dd")
-    private LocalDate createdAt;
+    @DateTimeFormat(pattern = "yyyy-MM-dd'T'HH:mm:ss")
+    private LocalDateTime createdAt;
 
     @Column(length = 30)
     private String userId;
@@ -37,9 +36,9 @@ public class Comment {
     private String userName;
 
     @Column
-    private boolean useYn;
+    private Boolean useYn;
 
     @Column
-    private boolean delYn;
+    private Boolean delYn;
 
 }

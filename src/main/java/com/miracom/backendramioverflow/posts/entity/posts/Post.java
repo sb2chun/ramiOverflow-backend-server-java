@@ -1,17 +1,22 @@
 package com.miracom.backendramioverflow.posts.entity.posts;
 
-import lombok.*;
+import lombok.AllArgsConstructor;
+import lombok.Builder;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
 import org.hibernate.annotations.ColumnDefault;
 import org.hibernate.annotations.CreationTimestamp;
+import org.hibernate.annotations.DynamicInsert;
 import org.hibernate.annotations.UpdateTimestamp;
 import org.springframework.format.annotation.DateTimeFormat;
 
 import javax.persistence.*;
-import java.time.LocalDate;
+import java.time.LocalDateTime;
 
 @Entity
 @Getter
 @Builder
+@DynamicInsert
 @NoArgsConstructor
 @AllArgsConstructor
 @Table(name = "POST")
@@ -22,19 +27,21 @@ public class Post {
     private Long id;
 
     @Column(length = 3)
-    private int postTypeId;     // 1-Question, 2-Answer
+    private Integer postTypeId;     // 1-Question, 2-Answer
 
     @Column
-    private long acceptAnswerId;  // only present if PostTypeId = 1
+    private Long acceptAnswerId;  // only present if PostTypeId = 1
 
     @Column
-    private long parentId;        // only present if PostTypeId = 2
+    private Long parentId;        // only present if PostTypeId = 2
 
     @Column(length = 10)
-    private int score;
+    @ColumnDefault("0")
+    private Integer score;
 
     @Column(length = 10)
-    private int viewCount;
+    @ColumnDefault("0")
+    private Integer viewCount;
 
     @Column(length = 800)
     private String body;
@@ -42,7 +49,7 @@ public class Post {
     @Column(nullable = false, updatable = false)
     @CreationTimestamp
     @DateTimeFormat(pattern = "yyyy-MM-dd'T'HH:mm:ss")
-    private LocalDate createdAt;        // FST_REG_DT
+    private LocalDateTime createdAt;        // FST_REG_DT
 
     @Column(length = 30)
     private String ownerUserId;         // FST_REGER_ID
@@ -59,7 +66,8 @@ public class Post {
     @Column
     @UpdateTimestamp
     @DateTimeFormat(pattern = "yyyy-MM-dd'T'HH:mm:ss")
-    private LocalDate lastEditedAt;
+    @ColumnDefault("false")
+    private LocalDateTime lastEditedAt;
 
     @Column
     private String title;
@@ -68,45 +76,51 @@ public class Post {
     private String tags;
 
     @Column(length = 10)
-    private int answerCount;
+    @ColumnDefault("0")
+    private Integer answerCount;
 
     @Column(length = 10)
-    private int favoriteCount;
+    @ColumnDefault("0")
+    private Integer favoriteCount;
 
     @Column(length = 10)
-    private int commentCount;
+    @ColumnDefault("0")
+    private Integer commentCount;
 
     @Column
     @DateTimeFormat(pattern = "yyyy-MM-dd'T'HH:mm:ss")
-    private LocalDate closedAt;
+    private LocalDateTime closedAt;
 
     @Column
-    private boolean isClosed;
+    @ColumnDefault("false")
+    private Boolean isClosed;
 
     @Column
-    private boolean isUsed;
+    @ColumnDefault("true")
+    private Boolean isUsed;
 
     @Column
-    private boolean isDeleted;
+    @ColumnDefault("false")
+    private Boolean isDeleted;
 
-    @PrePersist
-    public void prePersist(){
-        this.isClosed = false;
-        this.isUsed = true;
-        this.isDeleted = false;
-    }
+//    @PrePersist
+//    public void prePersist() {
+//        this.isClosed = false;
+//        this.isUsed = true;
+//        this.isDeleted = false;
+//    }
 
-    public void deletePost(){
+    public void deletePost() {
         this.isDeleted = true;
         this.isUsed = false;
     }
 
-    public void createQuestion(){
-        this.createdAt = LocalDate.now();
+    public void createQuestion() {
+        this.createdAt = LocalDateTime.now();
         this.postTypeId = 1;
     }
 
     public void updateQuestion() {
-        this.lastEditedAt =LocalDate.now();
+        this.lastEditedAt = LocalDateTime.now();
     }
 }

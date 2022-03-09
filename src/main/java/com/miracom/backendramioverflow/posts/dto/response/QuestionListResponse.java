@@ -8,7 +8,7 @@ import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
-import java.time.LocalDate;
+import java.time.LocalDateTime;
 
 @ApiModel
 @Data
@@ -33,11 +33,11 @@ public class QuestionListResponse {
     @ApiModelProperty(value = "질문 링크", example = "http://www.ramioverflow.com/11", position = 8)
     private String link;
     @ApiModelProperty(value = "최초 생성 일시", example = "2022-02-02'T'10:43:52", position = 9)
-    private LocalDate createdAt;
+    private LocalDateTime createdAt;
     @ApiModelProperty(value = "최종 수정 일시", example = "2022-02-02'T'10:43:52", position = 10)
-    private LocalDate lastEditedAt;
+    private LocalDateTime lastEditedAt;
 
-    public static QuestionListResponse fromEntity(Post entity){
+    public static QuestionListResponse fromEntity(Post entity) {
         QuestionListResponse response = new QuestionListResponse();
 
         response.setQuestionId(entity.getId());
@@ -46,8 +46,8 @@ public class QuestionListResponse {
         response.setTags(entity.getTags());
         response.setAnswerCount(entity.getAnswerCount());
         response.setViewCount(entity.getViewCount());
-        response.setAnswered( response.getAnswerCount()>0 ? true: false);
-        response.setLink(SysConfig.QUESTION_DEFAULT_URL+entity.getId());
+        response.setAnswered(response.getAnswerCount() > 0 ? true : false);
+        response.setLink(SysConfig.QUESTION_DEFAULT_URL + entity.getId());
         response.setCreatedAt(entity.getCreatedAt());
         response.setLastEditedAt(entity.getLastEditedAt());
 

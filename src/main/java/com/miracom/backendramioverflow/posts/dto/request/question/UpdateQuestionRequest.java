@@ -5,7 +5,7 @@ import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;
 
-import java.time.LocalDate;
+import java.time.LocalDateTime;
 
 @ApiModel
 @Data
@@ -25,7 +25,7 @@ public class UpdateQuestionRequest {
     private int postTypeId;
 
     @ApiModelProperty(value = "최종 수정 일시", example = "2022-03-05'T'14:32:55", position = 7)
-    private LocalDate lastEditedAt;
+    private LocalDateTime lastEditedAt;
     @ApiModelProperty(value = "최종 수정자 Id", example = "sb2chun", position = 8)
     private String lastEditorUserId;
     @ApiModelProperty(value = "최종 수정자 이름", example = "천승범", position = 9)
