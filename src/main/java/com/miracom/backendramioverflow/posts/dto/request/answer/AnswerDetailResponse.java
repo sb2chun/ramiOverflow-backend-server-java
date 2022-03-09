@@ -8,6 +8,7 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import java.time.LocalDate;
+import java.time.LocalDateTime;
 
 @ApiModel
 @Data
@@ -26,9 +27,9 @@ public class AnswerDetailResponse {
     @ApiModelProperty(value = "점수", example = "3", position = 5)
     private int score;
     @ApiModelProperty(value = "최초 생성 일시", example = "2022-02-02'T'10:43:52", position = 6)
-    private LocalDate createdAt;
+    private LocalDateTime createdAt;
     @ApiModelProperty(value = "최종 수정 일시", example = "2022-02-03'T'11:00:01", position = 7)
-    private LocalDate lastEditedAt;
+    private LocalDateTime lastEditedAt;
     @ApiModelProperty(value = "사용 여부", example = "true", position = 8)
     private boolean isUsed;
     @ApiModelProperty(value = "삭제 여부", example = "false", position = 9)
@@ -44,8 +45,8 @@ public class AnswerDetailResponse {
         response.setScore(entity.getScore());
         response.setCreatedAt(entity.getCreatedAt());
         response.setLastEditedAt(entity.getLastEditedAt());
-        response.setUsed(entity.isUsed());
-        response.setDeleted(entity.isDeleted());
+        response.setUsed(entity.getIsUsed());
+        response.setDeleted(entity.getIsDeleted());
 
         return response;
     }
