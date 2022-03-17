@@ -1,4 +1,4 @@
-package com.miracom.backendramioverflow.posts.dto.response;
+package com.miracom.backendramioverflow.posts.dto.response.question;
 
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.miracom.backendramioverflow.config.SysConfig;
@@ -13,23 +13,23 @@ import java.time.LocalDateTime;
 @ApiModel
 @Data
 @NoArgsConstructor
-@JsonInclude(JsonInclude.Include.NON_NULL)
+@JsonInclude(JsonInclude.Include.NON_DEFAULT)
 public class QuestionListResponse {
 
     @ApiModelProperty(value = "질문 id", example = "1", position = 1)
-    private long questionId;
+    private Long questionId;
     @ApiModelProperty(value = "질문 제목", example = "what's the better between ...", position = 2)
     private String title;
     @ApiModelProperty(value = "점수", example = "10", position = 3)
-    private int score;
+    private Integer score;
     @ApiModelProperty(value = "태그", example = "java;c#", position = 4)
     private String tags;
     @ApiModelProperty(value = "답변 수", example = "0", position = 5)
-    private int AnswerCount;
+    private Integer AnswerCount;
     @ApiModelProperty(value = "조회 수", example = "0", position = 6)
-    private int viewCount;
+    private Integer viewCount;
     @ApiModelProperty(value = "답변 여부", example = "false", position = 7)
-    private boolean isAnswered;
+    private Boolean isAnswered;
     @ApiModelProperty(value = "질문 링크", example = "http://www.ramioverflow.com/11", position = 8)
     private String link;
     @ApiModelProperty(value = "최초 생성 일시", example = "2022-02-02'T'10:43:52", position = 9)
@@ -46,7 +46,7 @@ public class QuestionListResponse {
         response.setTags(entity.getTags());
         response.setAnswerCount(entity.getAnswerCount());
         response.setViewCount(entity.getViewCount());
-        response.setAnswered(response.getAnswerCount() > 0 ? true : false);
+        response.setIsAnswered(response.getAnswerCount() > 0);
         response.setLink(SysConfig.QUESTION_DEFAULT_URL + entity.getId());
         response.setCreatedAt(entity.getCreatedAt());
         response.setLastEditedAt(entity.getLastEditedAt());

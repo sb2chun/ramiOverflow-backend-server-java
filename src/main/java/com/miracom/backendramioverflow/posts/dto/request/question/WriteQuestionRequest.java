@@ -19,15 +19,12 @@ public class WriteQuestionRequest {
     private String ownerUserId;
     @ApiModelProperty(value = "작성자 이름", example = "g-dragon", position = 5)
     private String ownerUserName;
-    @ApiModelProperty(value = "게시글 Type", example = "1", position = 6)
-    private int postTypeId;
 
     public Post toEntity() {
         return Post.builder()
                 .title(this.title)
                 .body(this.body)
                 .tags(this.tags)
-                .postTypeId(this.postTypeId)
                 .ownerUserName(this.ownerUserName)
                 .ownerUserId(this.ownerUserId)
                 .build();
