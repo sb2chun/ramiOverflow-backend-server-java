@@ -1,10 +1,11 @@
 package com.miracom.backendramioverflow.posts.service;
 
-import com.miracom.backendramioverflow.posts.dto.request.answer.AnswerDetailResponse;
+import com.miracom.backendramioverflow.posts.dto.request.answer.WriteNewAnswerRequest;
 import com.miracom.backendramioverflow.posts.dto.request.question.UpdateQuestionRequest;
 import com.miracom.backendramioverflow.posts.dto.request.question.WriteQuestionRequest;
-import com.miracom.backendramioverflow.posts.dto.response.QuestionDetailResponse;
-import com.miracom.backendramioverflow.posts.dto.response.QuestionListResponse;
+import com.miracom.backendramioverflow.posts.dto.response.answer.AnswerDetailResponse;
+import com.miracom.backendramioverflow.posts.dto.response.question.QuestionDetailResponse;
+import com.miracom.backendramioverflow.posts.dto.response.question.QuestionListResponse;
 import com.miracom.backendramioverflow.posts.entity.posts.Post;
 import com.miracom.backendramioverflow.posts.repository.QuestionRepository;
 import lombok.RequiredArgsConstructor;
@@ -30,7 +31,7 @@ public class QuestionService {
     }
 
     //Read One
-    public QuestionDetailResponse findQuestionById(long id) {
+    public QuestionDetailResponse findQuestionById(Long id) {
         Post post = questionRepository.findQuestionById(id);
 
         return QuestionDetailResponse.fromEntity(post);
@@ -46,12 +47,23 @@ public class QuestionService {
         return QuestionDetailResponse.fromEntity(post);
     }
 
-    //Delete(update)
-    public QuestionDetailResponse deleteQuestionById(long id) {
+    public QuestionDetailResponse deleteQuestionById(Long id) {
+        Optional<Post> post = questionRepository.findById(id);
+        post.ifPresent(selectQuestion -> {
+            selectQuestion.deletePost();
+
+            questionRepository.save(selectQuestion);
+            questionRepository.deleteQuestionById(id);
+        });
+
+        return QuestionDetailResponse.fromEntity(post.get());
+    }
+
+    public QuestionDetailResponse updateQuestionById(Long id, UpdateQuestionRequest request) {
         Optional<Post> post = questionRepository.findById(id);
 
         post.ifPresent(selectQuestion -> {
-            selectQuestion.deletePost();
+            selectQuestion.updateQuestion(request.getTitle(), request.getBody());
 
             questionRepository.save(selectQuestion);
         });
@@ -59,18 +71,29 @@ public class QuestionService {
         return QuestionDetailResponse.fromEntity(post.get());
     }
 
-    public QuestionDetailResponse updateQuestionById(long id, UpdateQuestionRequest request) {
+    public List<QuestionDetailResponse> findAllAnswerByQuestionId(Long id) {
+        List<Post> answers = questionRepository.findAllAnswerByQuestionId(id);
+
+        return answers.stream().map(QuestionDetailResponse::fromEntity).collect(Collectors.toList());
+    }
+
+    public AnswerDetailResponse addAnswerByQuestionId(Long id, WriteNewAnswerRequest request) {
+//        Optional<Post> postOptional = questionRepository.findById(id);
+//        if ( BaseUtil.isEqual( postOptional.get().getPostTypeId(), PostTypesEnum.QUESTION)){
+//            Post post = request.toEntity();
+//            post.createAnswer(id);
+//            questionRepository.save(post);
+//            return AnswerDetailResponse.fromEntity(post);
+//
+//        }else{
+//            new IllegalArgumentException("해당 글은 질문 글이 아닙니다. id = " + id);
+//            return null;
+//        }
         Post post = request.toEntity();
-        post.updateQuestion();
+        post.createAnswer(id);
 
         questionRepository.save(post);
 
-        return QuestionDetailResponse.fromEntity(post);
-    }
-
-    public List<AnswerDetailResponse> findAllAnswerByQuestionId(long id) {
-        List<Post> answers = questionRepository.findAllAnswerByQuestionId(id);
-
-        return answers.stream().map(AnswerDetailResponse::fromEntity).collect(Collectors.toList());
+        return AnswerDetailResponse.fromEntity(post);
     }
 }

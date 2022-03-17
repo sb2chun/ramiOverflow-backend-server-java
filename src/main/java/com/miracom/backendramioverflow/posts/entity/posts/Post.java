@@ -1,5 +1,6 @@
 package com.miracom.backendramioverflow.posts.entity.posts;
 
+import com.sun.istack.NotNull;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;
@@ -37,6 +38,7 @@ public class Post {
 
     @Column(length = 10)
     @ColumnDefault("0")
+    @NotNull
     private Integer score;
 
     @Column(length = 10)
@@ -116,11 +118,26 @@ public class Post {
     }
 
     public void createQuestion() {
-        this.createdAt = LocalDateTime.now();
         this.postTypeId = 1;
+        this.createdAt = LocalDateTime.now();
     }
 
-    public void updateQuestion() {
+    public void createAnswer(Long id) {
+        this.parentId = id;
+        this.postTypeId = 2;
+        this.createdAt = LocalDateTime.now();
+    }
+
+    public void updateQuestion(String title, String body) {
+        this.title = title;
+        this.body = body;
         this.lastEditedAt = LocalDateTime.now();
     }
+
+    public void acceptAnswerId(Long id) {
+        this.acceptAnswerId = id;
+        this.lastEditedAt = LocalDateTime.now();
+    }
+
+
 }
