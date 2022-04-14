@@ -3,11 +3,10 @@ plugins {
     id 'io.spring.dependency-management' version '1.0.11.RELEASE'
     id 'java'
 }
-
 group = 'com.miracom'
 version = '0.0.1-SNAPSHOT'
-sourceCompatibility = '11'
-targetCompatibility = '11'
+sourceCompatibility = 1.11
+targetCompatibility = 1.11
 
 configurations {
     compileOnly {
@@ -30,12 +29,12 @@ dependencies {
 //    runtimeOnly 'com.h2database:h2'
     implementation group: 'org.springframework.cloud', name:'spring-cloud-gcp-starter', version:'1.2.5.RELEASE'
     implementation group:'mysql', name:'mysql-connector-java', version:'8.0.27'
-//      gcp mysql
-//    implementation 'org.springframework.cloud:spring-cloud-gcp-starter-sql-mysql:1.0.0.M2'
+    implementation group: 'org.springframework.cloud', name: 'spring-cloud-gcp-starter-sql-mysql', version: '1.2.8.RELEASE'
+
 
     //lombok
-    compileOnly 'org.projectlombok:lombok:1.18.22'
-    annotationProcessor 'org.projectlombok:lombok:1.18.22'
+    compileOnly 'org.projectlombok:lombok'
+    annotationProcessor 'org.projectlombok:lombok'
 
     implementation 'com.fasterxml.jackson.core:jackson-databind:2.12.4'
     implementation 'com.fasterxml.jackson.datatype:jackson-datatype-jsr310'
@@ -44,8 +43,12 @@ dependencies {
     implementation group: 'io.springfox', name: 'springfox-swagger-ui', version: '2.9.2'
     implementation group: 'io.springfox', name: 'springfox-swagger2', version: '2.9.2'
 
+    //for manifest
+    implementation group: 'org.springframework.boot', name: 'spring-boot-maven-plugin', version: '2.3.6.RELEASE'
 }
-
-tasks.named('test') {
-    useJUnitPlatform()
+jar{
+    manifest{
+        attributes 'Main-Class': 'com.miracom.backendramioverflow.BackendRamioverflowApplication'
+    }
 }
+jar.enabled=true
