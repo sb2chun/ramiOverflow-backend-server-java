@@ -6,7 +6,8 @@ plugins {
 
 group = 'com.miracom'
 version = '0.0.1-SNAPSHOT'
-sourceCompatibility = '1.11'
+sourceCompatibility = '11'
+targetCompatibility = '11'
 
 configurations {
     compileOnly {
@@ -27,7 +28,8 @@ dependencies {
 
 //     database
 //    runtimeOnly 'com.h2database:h2'
-    runtimeOnly 'mysql:mysql-connector-java'
+    implementation group: 'org.springframework.cloud', name:'spring-cloud-gcp-starter', version:'1.2.5.RELEASE'
+    implementation group:'mysql', name:'mysql-connector-java', version:'8.0.27'
 //      gcp mysql
 //    implementation 'org.springframework.cloud:spring-cloud-gcp-starter-sql-mysql:1.0.0.M2'
 
