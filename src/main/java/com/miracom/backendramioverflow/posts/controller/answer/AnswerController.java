@@ -19,9 +19,10 @@ public class AnswerController {
     private final AnswerService answerService;
 
     @ApiOperation(value = "특정 대답 채택")
-    @PatchMapping("/{id}/accept")
-    public AnswerDetailResponse acceptAnswerById(@PathVariable Long id) {
+    @PatchMapping("/{id}/accept/{acceptedId}")
+    public int acceptAnswerById(@PathVariable Long id
+                                                ,@PathVariable Long acceptedId) {
 
-        return answerService.acceptAnswerById(id);
+        return answerService.acceptAnswerById(id, acceptedId);
     }
 }

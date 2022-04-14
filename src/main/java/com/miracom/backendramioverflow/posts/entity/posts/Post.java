@@ -68,7 +68,6 @@ public class Post {
     @Column
     @UpdateTimestamp
     @DateTimeFormat(pattern = "yyyy-MM-dd'T'HH:mm:ss")
-    @ColumnDefault("false")
     private LocalDateTime lastEditedAt;
 
     @Column

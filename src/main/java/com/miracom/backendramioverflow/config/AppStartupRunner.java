@@ -16,6 +16,6 @@ public class AppStartupRunner implements ApplicationRunner {
     public void run(ApplicationArguments args) throws Exception {
         System.out.println("------------------Boot on------------------");
 
-        postService.setupTestData();
+//        postService.setupTestData();
     }
 }
