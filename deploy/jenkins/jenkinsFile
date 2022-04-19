@@ -31,7 +31,7 @@ def ssh_publisher(SERVER_CONFIG) {
 // (1)
 pipeline {
     environment {
-        // (2) Registered in Jenkins
+        // (2) Registered in Jenkins 
         SERVER_LIST = "webserver-instance-1"
     }
 
